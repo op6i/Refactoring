@@ -100,7 +100,7 @@ namespace GildedRose.Tests
         [Fact]
         public void BackstagePassesProcess()
         {
-            var app = CreateAndUpdate("Backstage passes to a TAFKAL80ETC concert", 0, 20);
+            var app = CreateAndUpdate("Backstage passes to a TAFKAL80ETC concert", 0, 25);
 
             //assert quality
             Assert.Equal(0, app.Items[0].Quality);
@@ -108,9 +108,6 @@ namespace GildedRose.Tests
             //assert sellin
             Assert.Equal(-1, app.Items[0].SellIn);
         }
-
-
-
 
     }
 
