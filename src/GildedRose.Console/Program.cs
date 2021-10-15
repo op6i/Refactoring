@@ -48,12 +48,12 @@ namespace GildedRose.Console
                 //or SellIn < 6
                 noneNameAndBigQuality(i);
 
-                //inc sellIn If name not Sulfuras
-                incSellIn(i);
+                //sec sellIn If name not Sulfuras
+                SulfurasSellIn(i);
 
                 //func that inc and dic quality 
                 //conditions are:
-                //sSellIn < 0 for all in:
+                //SellIn < 0 for all in:
                 //name not (Aged Brie,Backstage passes to a TAFKAL80ETC concert,Sulfuras, Hand of Ragnaros)
                 //and Quality > 0
                 //else:
@@ -72,7 +72,7 @@ namespace GildedRose.Console
                 if (Items[i].Quality > 0 && Items[i].Name != "Sulfuras, Hand of Ragnaros")
                 {
                     {
-                        Items[i].Quality = Items[i].Quality - 1;
+                        decQuality(i);
                     }
                 }
             }
@@ -80,28 +80,28 @@ namespace GildedRose.Console
             {
                 if (Items[i].Quality < 50)
                 {
-                    Items[i].Quality = Items[i].Quality + 1;
+                    incQuality(i);
 
                     if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert" && Items[i].SellIn < 11 && Items[i].Quality < 50)
                     {
                         {
-                            Items[i].Quality = Items[i].Quality + 1;
+                            incQuality(i);
                         }
 
                         if (Items[i].SellIn < 6 && Items[i].Quality < 50)
                         {
-                            Items[i].Quality = Items[i].Quality + 1;
+                            incQuality(i);
                         }
                     }
                 }
             }
 
         }
-        public void incSellIn(int i)
+        public void SulfurasSellIn(int i)
         {
             if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
             {
-                Items[i].SellIn = Items[i].SellIn - 1;
+                decSellIn(i);
             }
         }
         public void allNamesLimitQuality(int i)
@@ -114,24 +114,39 @@ namespace GildedRose.Console
                     {
                         if (Items[i].Quality > 0 && Items[i].Name != "Sulfuras, Hand of Ragnaros")
                         {
-                            Items[i].Quality = Items[i].Quality - 1;
+                            decQuality(i);
                         }
                     }
                     else
                     {
-                        Items[i].Quality = Items[i].Quality - Items[i].Quality;
+                        zeroQuality(i);
                     }
                 }
                 else
                 {
                     if (Items[i].Quality < 50)
                     {
-                        Items[i].Quality = Items[i].Quality + 1;
+                        incQuality(i);
                     }
                 }
             }
         }
-
+        public void incQuality(int i)
+        {
+            Items[i].Quality = Items[i].Quality + 1;
+        }
+        public void decQuality(int i)
+        {
+            Items[i].Quality = Items[i].Quality - 1;
+        }
+        public void zeroQuality(int i)
+        {
+            Items[i].Quality =0;
+        }
+        public void decSellIn (int i)
+        {
+            Items[i].SellIn = Items[i].SellIn - 1;
+        }
     }
 
     public class Item
