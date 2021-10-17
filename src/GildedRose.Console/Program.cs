@@ -10,8 +10,8 @@ namespace GildedRose.Console
             System.Console.WriteLine("OMGHAI!");
 
             var app = new Program()
-                          {
-                              Items = new List<Item>
+            {
+                Items = new List<Item>
                                           {
                                               new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20},
                                               new Item {Name = "Aged Brie", SellIn = 2, Quality = 0},
@@ -26,14 +26,13 @@ namespace GildedRose.Console
                                               new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
                                           }
 
-                          };
+            };
 
             app.UpdateQuality();
 
             System.Console.ReadKey();
 
         }
-
         public void UpdateQuality()
         {
             for (var i = 0; i < Items.Count; i++)
@@ -64,8 +63,7 @@ namespace GildedRose.Console
 
             }
         }
-
-        public void noneNameAndBigQuality( int i)
+        public void noneNameAndBigQuality(int i)
         {
             if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
             {
@@ -82,13 +80,13 @@ namespace GildedRose.Console
                 {
                     incQuality(i);
 
-                    if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert" && Items[i].SellIn < 11 && Items[i].Quality < 50)
+                    if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert" && Items[i].SellIn < 11 )
                     {
                         {
                             incQuality(i);
                         }
 
-                        if (Items[i].SellIn < 6 && Items[i].Quality < 50)
+                        if (Items[i].SellIn < 6)
                         {
                             incQuality(i);
                         }
@@ -141,14 +139,13 @@ namespace GildedRose.Console
         }
         public void zeroQuality(int i)
         {
-            Items[i].Quality =0;
+            Items[i].Quality = 0;
         }
-        public void decSellIn (int i)
+        public void decSellIn(int i)
         {
             Items[i].SellIn = Items[i].SellIn - 1;
         }
     }
-
     public class Item
     {
         public string Name { get; set; }
@@ -157,5 +154,12 @@ namespace GildedRose.Console
 
         public int Quality { get; set; }
     }
-
+    public class AgedBrie
+    {
+    }
+    public class Backstage
+    {
+    }
+    public class Sulfuras
+    {    }
 }
