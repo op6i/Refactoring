@@ -34,6 +34,18 @@ namespace GildedRose.Console
             System.Console.ReadKey();
 
         }
+        public void sortUpdateQuality(Products name, IList<Item> Items, int i)
+        { 
+                name.decSellInIn(Items, i);
+                if (Items[i].Quality < 50)
+                {
+                    name.qualityLess50(Items, i);
+                }
+                if (Items[i].Quality > 0)
+                {
+                    name.qualityMore0(Items, i);
+                }
+            }
         public void UpdateQuality()
         {
             for (var i = 0; i < Items.Count; i++)
@@ -41,61 +53,27 @@ namespace GildedRose.Console
                 if (Items[i].Name == "Aged Brie")
                 {
                     AgedBrie aged = new AgedBrie();
-                    aged.decSellInIn(Items, i);
-                    if (Items[i].Quality<50)
-                    {
-                        aged.qualityLess50(Items,i);
-                    }
-                     if (Items[i].Quality>0)
-                    {
-                        aged.qualityMore0(Items, i);
-                    }
+                    sortUpdateQuality(aged, Items, i);
                 }
                 if (Items[i].Name == "Sulfuras, Hand of Ragnaros")
                 {
                     Sulfuras sul = new Sulfuras();
-                    sul.decSellInIn(Items, i);
-                    if (Items[i].Quality < 50)
-                    {
-                        sul.qualityLess50(Items, i);
-                    }
-                     if (Items[i].Quality > 0)
-                    {
-                        sul.qualityMore0(Items, i);
-                    }
+                    sortUpdateQuality(sul, Items, i);
                 }
                 if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
                 {
                     Backstage back = new Backstage();
-                    back.decSellInIn(Items, i);
-                    if (Items[i].Quality < 50)
-                    {
-                        back.qualityLess50(Items, i);
-                    }
-                     if (Items[i].Quality > 0)
-                    {
-                        back.qualityMore0(Items, i);
-                    }
+                    sortUpdateQuality(back, Items, i);
                 }
                 if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert" && Items[i].Name != "Sulfuras, Hand of Ragnaros")
                 {
                     anyName any = new anyName();
-                    any.decSellInIn(Items, i);
-                    if (Items[i].Quality < 50)
-                    {
-                        any.qualityLess50(Items, i);
-                    }
-                     if (Items[i].Quality > 0)
-                    {
-                        any.qualityMore0(Items, i);
-                    }
+                    sortUpdateQuality(any, Items, i);
                 }
-
             }
         }
-       
-        
     }
+
     public class Item
     {
         public string Name { get; set; }
@@ -199,7 +177,7 @@ namespace GildedRose.Console
     }
     public class anyName : supesDecIns, Products
     {
-        public void decSellInIn(IList<Item> Items, int i)
+          public void decSellInIn(IList<Item> Items, int i)
         {
             decSellIn(Items, i);
         }
