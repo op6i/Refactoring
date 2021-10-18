@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GildedRose.Console
 {
@@ -37,114 +38,63 @@ namespace GildedRose.Console
         {
             for (var i = 0; i < Items.Count; i++)
             {
-                //func that inc and dic quality 
-                //conditions are:
-                //name not (Aged Brie,Backstage passes to a TAFKAL80ETC concert,Sulfuras, Hand of Ragnaros)
-                //and Quality>0
-                //else:
-                //name not (Aged Brie,Backstage passes to a TAFKAL80ETC concert)
-                //Quality < 50 and SellIn < 11
-                //or SellIn < 6
-                noneNameAndBigQuality(i);
-
-                //sec sellIn If name not Sulfuras
-                SulfurasSellIn(i);
-
-                //func that inc and dic quality 
-                //conditions are:
-                //SellIn < 0 for all in:
-                //name not (Aged Brie,Backstage passes to a TAFKAL80ETC concert,Sulfuras, Hand of Ragnaros)
-                //and Quality > 0
-                //else:
-                //name not(Aged Brie)
-                //else:
-                //name is (Aged Brie) and Quality < 50
-                allNamesLimitQuality(i);
-
-            }
-        }
-        public void noneNameAndBigQuality(int i)
-        {
-            if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-            {
-                if (Items[i].Quality > 0 && Items[i].Name != "Sulfuras, Hand of Ragnaros")
+                if (Items[i].Name == "Aged Brie")
                 {
+                    AgedBrie aged = new AgedBrie();
+                    aged.decSellInIn(Items, i);
+                    if (Items[i].Quality<50)
                     {
-                        decQuality(i);
+                        aged.qualityLess50(Items,i);
+                    }
+                     if (Items[i].Quality>0)
+                    {
+                        aged.qualityMore0(Items, i);
                     }
                 }
-            }
-            else
-            {
-                if (Items[i].Quality < 50)
+                if (Items[i].Name == "Sulfuras, Hand of Ragnaros")
                 {
-                    incQuality(i);
-
-                    if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert" && Items[i].SellIn < 11 )
-                    {
-                        {
-                            incQuality(i);
-                        }
-
-                        if (Items[i].SellIn < 6)
-                        {
-                            incQuality(i);
-                        }
-                    }
-                }
-            }
-
-        }
-        public void SulfurasSellIn(int i)
-        {
-            if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-            {
-                decSellIn(i);
-            }
-        }
-        public void allNamesLimitQuality(int i)
-        {
-            if (Items[i].SellIn < 0)
-            {
-                if (Items[i].Name != "Aged Brie")
-                {
-                    if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-                    {
-                        if (Items[i].Quality > 0 && Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            decQuality(i);
-                        }
-                    }
-                    else
-                    {
-                        zeroQuality(i);
-                    }
-                }
-                else
-                {
+                    Sulfuras sul = new Sulfuras();
+                    sul.decSellInIn(Items, i);
                     if (Items[i].Quality < 50)
                     {
-                        incQuality(i);
+                        sul.qualityLess50(Items, i);
+                    }
+                     if (Items[i].Quality > 0)
+                    {
+                        sul.qualityMore0(Items, i);
                     }
                 }
+                if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+                {
+                    Backstage back = new Backstage();
+                    back.decSellInIn(Items, i);
+                    if (Items[i].Quality < 50)
+                    {
+                        back.qualityLess50(Items, i);
+                    }
+                     if (Items[i].Quality > 0)
+                    {
+                        back.qualityMore0(Items, i);
+                    }
+                }
+                if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert" && Items[i].Name != "Sulfuras, Hand of Ragnaros")
+                {
+                    anyName any = new anyName();
+                    any.decSellInIn(Items, i);
+                    if (Items[i].Quality < 50)
+                    {
+                        any.qualityLess50(Items, i);
+                    }
+                     if (Items[i].Quality > 0)
+                    {
+                        any.qualityMore0(Items, i);
+                    }
+                }
+
             }
         }
-        public void incQuality(int i)
-        {
-            Items[i].Quality = Items[i].Quality + 1;
-        }
-        public void decQuality(int i)
-        {
-            Items[i].Quality = Items[i].Quality - 1;
-        }
-        public void zeroQuality(int i)
-        {
-            Items[i].Quality = 0;
-        }
-        public void decSellIn(int i)
-        {
-            Items[i].SellIn = Items[i].SellIn - 1;
-        }
+       
+        
     }
     public class Item
     {
@@ -154,12 +104,118 @@ namespace GildedRose.Console
 
         public int Quality { get; set; }
     }
-    public class AgedBrie
+    public interface Products
     {
+        void qualityMore0(IList<Item> Items, int i);
+        void qualityLess50(IList<Item> Items, int i);
+        void decSellInIn (IList<Item> Items, int i);
+        
     }
-    public class Backstage
+    public class supesDecIns
     {
+        public void incQuality(IList<Item> Items,int i)
+        {
+            Items[i].Quality = Items[i].Quality + 1;
+        }
+        public void decQuality(IList<Item> Items, int i)
+        {
+            Items[i].Quality = Items[i].Quality - 1;
+        }
+        public void zeroQuality(IList<Item> Items, int i)
+        {
+            Items[i].Quality = 0;
+        }
+        public void decSellIn(IList<Item> Items, int i)
+        {
+            Items[i].SellIn = Items[i].SellIn - 1;
+        }
     }
-    public class Sulfuras
-    {    }
+    public class AgedBrie : supesDecIns, Products
+    {
+        public void decSellInIn (IList<Item> Items, int i)
+        {
+            decSellIn(Items, i);
+        }
+        public void qualityLess50(IList<Item> Items, int i)
+        {
+            incQuality(Items, i);
+            
+            if (Items[i].SellIn < 0 && Items[i].Quality <50)
+            {
+                incQuality(Items, i);
+            }
+            //throw new NotImplementedException();
+        }
+
+        public void qualityMore0(IList<Item> Items, int i)
+        {
+            
+           // throw new NotImplementedException();
+        }
+    }
+    public class Backstage : supesDecIns, Products
+    {
+        public void decSellInIn(IList<Item> Items, int i)
+        {
+            decSellIn(Items, i);
+        }
+        public void qualityLess50(IList<Item> Items, int i)
+        {
+            incQuality(Items, i);
+            if (Items[i].SellIn < 11)
+            {
+                incQuality(Items, i);
+            }
+            if (Items[i].SellIn < 6)
+            {
+                incQuality(Items, i);
+            }
+            if (Items[i].SellIn<0)
+            {
+                zeroQuality(Items, i);
+            }
+            //   throw new NotImplementedException();
+        }
+
+        public void qualityMore0(IList<Item> Items, int i)
+        {
+            //     throw new NotImplementedException();
+        }
+    }
+    public class Sulfuras : supesDecIns, Products
+    {
+        public void decSellInIn(IList<Item> Items, int i)
+        {
+        }
+        public void qualityLess50(IList<Item> Items, int i)
+        {
+            //    throw new NotImplementedException();
+        }
+
+        public void qualityMore0(IList<Item> Items, int i)
+        {
+            //    throw new NotImplementedException();
+        }
+    }
+    public class anyName : supesDecIns, Products
+    {
+        public void decSellInIn(IList<Item> Items, int i)
+        {
+            decSellIn(Items, i);
+        }
+        public void qualityLess50(IList<Item> Items, int i)
+        {
+            //   throw new NotImplementedException();
+        }
+
+        public void qualityMore0(IList<Item> Items, int i)
+        {
+            decQuality(Items, i);
+            if (Items[i].SellIn < 0)
+            {
+                decQuality(Items, i);
+            }
+            //    throw new NotImplementedException();
+        }
+    }
 }

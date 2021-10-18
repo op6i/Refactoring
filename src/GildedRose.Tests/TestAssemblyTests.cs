@@ -12,7 +12,7 @@ namespace GildedRose.Tests
             //arrange
             Item[] items = new Item[]
             {
-                new Item{ Name=name,SellIn=sellin,Quality=quality }
+                new Item{ Name=name,SellIn=sellin,Quality=quality}
             };
 
             //act
