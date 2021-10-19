@@ -109,6 +109,17 @@ namespace GildedRose.Tests
             Assert.Equal(-1, app.Items[0].SellIn);
         }
 
+        [Fact]
+        public void ConjuredDoubleQuality()
+        {
+            var app = CreateAndUpdate("Conjured", 15, 50);
+
+            //assert quality
+            Assert.Equal(50, app.Items[0].Quality);
+
+            //assert sellin
+            Assert.Equal(14, app.Items[0].SellIn);
+        }
     }
 
 }

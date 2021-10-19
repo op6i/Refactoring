@@ -37,14 +37,18 @@ namespace GildedRose.Console
         public void sortUpdateQuality(Products name, IList<Item> Items, int i)
         { 
                 name.decSellInIn(Items, i);
-                if (Items[i].Quality < 50)
+                if (Items[i].Quality != 50)
                 {
-                    name.qualityLess50(Items, i);
-                }
-                if (Items[i].Quality > 0)
-                {
-                    name.qualityMore0(Items, i);
-                }
+                        if (Items[i].Quality < 50)
+                        {
+                            name.qualityLess50(Items, i);
+                        }
+                        if (Items[i].Quality > 0)
+                        {
+                            name.qualityMore0(Items, i);
+                        }
+            }
+                
             }
         public void UpdateQuality()
         {
@@ -65,11 +69,17 @@ namespace GildedRose.Console
                     Backstage back = new Backstage();
                     sortUpdateQuality(back, Items, i);
                 }
-                if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert" && Items[i].Name != "Sulfuras, Hand of Ragnaros")
+                if (Items[i].Name == "Conjured")
+                {
+                    Conjured con = new Conjured();
+                    sortUpdateQuality(con, Items, i);
+                }
+                if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert" && Items[i].Name != "Sulfuras, Hand of Ragnaros" && Items[i].Name != "Conjured")
                 {
                     anyName any = new anyName();
                     sortUpdateQuality(any, Items, i);
                 }
+
             }
         }
     }
@@ -193,6 +203,24 @@ namespace GildedRose.Console
             {
                 decQuality(Items, i);
             }
+            //    throw new NotImplementedException();
+        }
+    }
+    public class Conjured : supesDecIns, Products
+    {
+        public void decSellInIn(IList<Item> Items, int i)
+        {
+            decSellIn(Items, i);
+        }
+        public void qualityLess50(IList<Item> Items, int i)
+        {
+            //   throw new NotImplementedException();
+        }
+
+        public void qualityMore0(IList<Item> Items, int i)
+        {
+            incQuality(Items, i);
+            incQuality(Items, i);
             //    throw new NotImplementedException();
         }
     }
